@@ -1,0 +1,128 @@
+{
+  "githubUsername": "ozlphrt",
+  "pinnedApps": [
+    "Jarrows",
+    "GlobeSweeper",
+    "HexaSweeper",
+    "arrws",
+    "bubble-project",
+    "GeoTest",
+    "FlagTest2",
+    "2048-Hexa",
+    "Z048",
+    "ShakyGrounds",
+    "Carousel",
+    "all-cards-on-the-table",
+    "Xudoku",
+    "zudoku",
+    "sudoku",
+    "Boats-Around",
+    "SkyNeedle",
+    "vibeants",
+    "watch2",
+    "ag-flock-3d",
+    "fertility-simulation",
+    "particle-life-simulation",
+    "shopping-list",
+    "aplica-v2",
+    "bayk-partnership-dev",
+    "sailing-club-partnership",
+    "Sardines-"
+  ],
+  "hiddenApps": [
+    "git-remote-add-origin-https-github.com-ozlphrt-aplica",
+    "FlagTest",
+    "3d-map",
+    "aplica",
+    "univera",
+    "SashaTracker",
+    "IcoSphere-Sweeper",
+    "weight-balance-3d-game",
+    "weight-balance-game",
+    "hexa2",
+    "ants"
+  ],
+  "overrides": {
+    "2048-Hexa": {
+      "screenshot": "screenshots/2048-hexa.png"
+    },
+    "Z048": {
+      "screenshot": "screenshots/Z048.png"
+    },
+    "ag-flock-3d": {
+      "screenshot": "screenshots/ag flock 3d.png"
+    },
+    "all-cards-on-the-table": {
+      "screenshot": "screenshots/all cards .png"
+    },
+    "aplica-v2": {
+      "screenshot": "screenshots/aplica-v2.png"
+    },
+    "bayk-partnership-dev": {
+      "screenshot": "screenshots/bayk-partnership-dev.png"
+    },
+    "Boats-Around": {
+      "screenshot": "screenshots/boats around.png"
+    },
+    "bubble-project": {
+      "screenshot": "screenshots/bubble-project.png"
+    },
+    "Carousel": {
+      "screenshot": "screenshots/carousel.png"
+    },
+    "fertility-simulation": {
+      "screenshot": "screenshots/fertility-simulation.png"
+    },
+    "FlagTest2": {
+      "screenshot": "screenshots/flagtest2.png"
+    },
+    "GeoTest": {
+      "screenshot": "screenshots/geotestnew.png"
+    },
+    "GlobeSweeper": {
+      "screenshot": "screenshots/globesweeper.png"
+    },
+    "HexaSweeper": {
+      "screenshot": "screenshots/hexasweeper.png"
+    },
+    "Jarrows": {
+      "screenshot": "screenshots/jarrows.png"
+    },
+    "particle-life-simulation": {
+      "screenshot": "screenshots/particle-life-simulation.png"
+    },
+    "sailing-club-partnership": {
+      "screenshot": "screenshots/sailing-club-partnership.png"
+    },
+    "Sardines-": {
+      "screenshot": "screenshots/sardines.png"
+    },
+    "ShakyGrounds": {
+      "screenshot": "screenshots/shakygrounds.png"
+    },
+    "shopping-list": {
+      "screenshot": "screenshots/shopping-list.png"
+    },
+    "sudoku": {
+      "screenshot": "screenshots/sudoku.png"
+    },
+    "vibeants": {
+      "screenshot": "screenshots/vibeants.png"
+    },
+    "SkyNeedle": {
+      "screenshot": "screenshots/skyneedle.png"
+    },
+    "arrws": {
+      "screenshot": "screenshots/arrws.png"
+    },
+    "watch2": {
+      "screenshot": "screenshots/watch2.png"
+    },
+    "Xudoku": {
+      "screenshot": "screenshots/xudoku.png"
+    },
+    "zudoku": {
+      "screenshot": "screenshots/zudoku.png"
+    }
+  }
+}
