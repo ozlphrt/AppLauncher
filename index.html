@@ -5,26 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Showcase | @ozlphrt</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1 class="site-title">Showcase</h1>
+            <div class="header-bar">
+                <div class="title-group">
+                    <h1 class="site-title">Showcase</h1>
+                    <span class="site-count" id="appCount">30 projects</span>
+                </div>
+
+                <!-- Compact Segmented Filter/Toggle Bar -->
+                <nav class="category-nav">
+                    <button class="cat-pill active" id="pill-all" data-category="all" title="Toggle all sections">
+                        <span>All</span>
+                        <span id="catCountAll" class="cat-badge">0</span>
+                    </button>
+                    <button class="cat-pill active" id="pill-simulations" data-category="simulations" title="Click to expand/collapse Simulations">
+                        <span>Simulations</span>
+                        <span id="catCountSimulations" class="cat-badge">0</span>
+                        <svg class="pill-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <button class="cat-pill active" id="pill-games" data-category="games" title="Click to expand/collapse Games">
+                        <span>Games</span>
+                        <span id="catCountGames" class="cat-badge">0</span>
+                        <svg class="pill-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <button class="cat-pill active" id="pill-apps" data-category="apps" title="Click to expand/collapse Apps">
+                        <span>Apps</span>
+                        <span id="catCountApps" class="cat-badge">0</span>
+                        <svg class="pill-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                </nav>
+            </div>
         </header>
 
-        <main id="appGrid" class="app-grid">
-            <div class="loading">Fetching projects from GitHub...</div>
+        <!-- Main Showcase Container (Grouped by Category) -->
+        <main id="showcaseSections" class="showcase-sections">
+            <div class="loading">Loading projects from GitHub...</div>
         </main>
     </div>
 
-    <script src="main.js"></script>
+    <script src="main.js?v=3.0"></script>
 </body>
 
 </html>

@@ -1,33 +1,36 @@
 {
   "githubUsername": "ozlphrt",
   "pinnedApps": [
+    "WhoPaid",
+    "all-cards-on-the-table",
+    "Morsefy",
+    "Racer",
+    "antsJune26",
+    "CakmaRA",
     "Jarrows",
     "GlobeSweeper",
+    "gravity-flip",
+    "Bubbles",
+    "titan-6x-robot-arm",
     "HexaSweeper",
+    "zudoku",
     "arrws",
+    "flowfree-cube",
     "bubble-project",
-    "GeoTest",
     "FlagTest2",
     "2048-Hexa",
     "Z048",
-    "ShakyGrounds",
+    "Sardines-",
     "Carousel",
-    "all-cards-on-the-table",
-    "Xudoku",
-    "zudoku",
-    "sudoku",
-    "Boats-Around",
-    "SkyNeedle",
-    "vibeants",
     "watch2",
+    "vibeants",
     "ag-flock-3d",
-    "fertility-simulation",
     "particle-life-simulation",
-    "shopping-list",
     "aplica-v2",
-    "bayk-partnership-dev",
-    "sailing-club-partnership",
-    "Sardines-"
+    "PhantomJam",
+    "SUM10",
+    "Shikaku",
+    "Egg-Theory"
   ],
   "hiddenApps": [
     "git-remote-add-origin-https-github.com-ozlphrt-aplica",
@@ -40,23 +43,202 @@
     "weight-balance-3d-game",
     "weight-balance-game",
     "hexa2",
-    "ants"
+    "ants",
+    "GeoTest",
+    "SkyNeedle",
+    "Boats-Around",
+    "fertility-simulation",
+    "shopping-list",
+    "bayk-partnership-dev",
+    "sailing-club-partnership",
+    "ShakyGrounds",
+    "Xudoku",
+    "sudoku"
   ],
   "overrides": {
+    "Morsefy": {
+      "name": "Morsefy",
+      "category": "apps",
+      "description": "Audio-first Morse code ear trainer with Koch method timing, custom WPM & live CW audio synthesizer",
+      "screenshot": "screenshots/Morsify.png"
+    },
+    "WhoPaid": {
+      "name": "WhoPaid",
+      "category": "apps",
+      "description": "Fast multi-currency group expense tracker with smart debt simplification & balance settlements for trips",
+      "screenshot": "screenshots/WhoPaid.png"
+    },
+    "aplica-v2": {
+      "name": "Aplica v2",
+      "category": "apps",
+      "description": "Data-driven college matching portal with 1,000+ university profiles, admission odds, tuition stats & deadlines",
+      "screenshot": "screenshots/aplica-v2.png"
+    },
+    "GlobeSweeper": {
+      "name": "GlobeSweeper",
+      "category": "games",
+      "description": "Spherical Minesweeper played across a 3D globe surface",
+      "screenshot": "screenshots/globesweeper.png"
+    },
+    "HexaSweeper": {
+      "name": "HexaSweeper",
+      "category": "games",
+      "description": "3D hexagonal grid puzzle with interactive board segments",
+      "screenshot": "screenshots/hexasweeper.png"
+    },
+    "flowfree-cube": {
+      "name": "FlowFree 3D",
+      "category": "games",
+      "description": "Connect-the-dots flow puzzle wrapped onto a 3D cube",
+      "screenshot": "screenshots/FlowFree 3D.png"
+    },
+    "gravity-flip": {
+      "name": "Gravity Flip",
+      "category": "games",
+      "description": "Fast-paced platformer navigating inverted gravitational fields",
+      "screenshot": "screenshots/GravityFlip.png"
+    },
+    "Racer": {
+      "name": "AI Racer",
+      "category": "simulations",
+      "description": "Neuroevolution AI autonomous car racing laboratory",
+      "screenshot": "screenshots/racer.png"
+    },
     "2048-Hexa": {
+      "name": "Hex 2048",
+      "category": "games",
+      "description": "Classic 2048 tile-merging puzzle on a hexagonal grid",
       "screenshot": "screenshots/2048-hexa.png"
     },
     "Z048": {
+      "name": "Z048",
+      "category": "games",
+      "description": "Isometric 2048 sliding puzzle with glass mosaic styling",
       "screenshot": "screenshots/Z048.png"
     },
-    "ag-flock-3d": {
-      "screenshot": "screenshots/ag flock 3d.png"
+    "Jarrows": {
+      "name": "Jarrows",
+      "category": "games",
+      "description": "Sliding block puzzle navigating directional arrows",
+      "screenshot": "screenshots/jarrows.png"
+    },
+    "arrws": {
+      "name": "ARROWS",
+      "category": "games",
+      "description": "Minimalist puzzle solving arrow traffic and rotations",
+      "screenshot": "screenshots/arrws.png"
+    },
+    "FlagTest2": {
+      "name": "FlagTest",
+      "category": "games",
+      "description": "Country flags sorting challenge and geography recall game",
+      "screenshot": "screenshots/flagtest2.png"
     },
     "all-cards-on-the-table": {
+      "name": "All Cards on Table",
+      "category": "apps",
+      "description": "Dark-glass dinner question game for deep, intimate conversations with curated prompt decks & card flip physics",
       "screenshot": "screenshots/all cards .png"
     },
-    "aplica-v2": {
-      "screenshot": "screenshots/aplica-v2.png"
+    "zudoku": {
+      "name": "Zudoku",
+      "category": "games",
+      "description": "Modern Sudoku number placement puzzle with clean notes",
+      "screenshot": "screenshots/zudoku.png"
+    },
+    "antsJune26": {
+      "name": "3D Ant Colony",
+      "category": "simulations",
+      "description": "Emergent ant colony foraging and pathfinding simulation",
+      "screenshot": "screenshots/Ants v2.png"
+    },
+    "vibeants": {
+      "name": "VibeAnts",
+      "category": "simulations",
+      "description": "Artificial ant foraging ecosystem with pheromone trail dynamics",
+      "screenshot": "screenshots/vibeants.png"
+    },
+    "titan-6x-robot-arm": {
+      "name": "TITAN-6X Robot Arm",
+      "category": "simulations",
+      "description": "6-DOF industrial robot arm digital twin with inverse kinematics",
+      "screenshot": "screenshots/RobotArm.png"
+    },
+    "particle-life-simulation": {
+      "name": "Particle Life",
+      "category": "simulations",
+      "description": "Emergent life behaviors from particle attraction & sound synthesis",
+      "screenshot": "screenshots/particle-life-simulation.png"
+    },
+    "ag-flock-3d": {
+      "name": "3D Flocking Boids",
+      "category": "simulations",
+      "description": "Emergent 3D swarm intelligence using Craig Reynolds' boid model",
+      "screenshot": "screenshots/ag flock 3d.png"
+    },
+    "CakmaRA": {
+      "name": "CakmaRA Swarm",
+      "category": "simulations",
+      "description": "Interactive 3D boid swarm simulation with obstacle avoidance",
+      "screenshot": "screenshots/CakmaRA.png"
+    },
+    "Sardines-": {
+      "name": "Sardines Flock",
+      "category": "simulations",
+      "description": "Underwater fish schooling and cohesive flocking behavior",
+      "screenshot": "screenshots/sardinesnew2.png"
+    },
+    "Bubbles": {
+      "name": "Bubble Coalescence",
+      "category": "games",
+      "description": "Fluid bubble surface coalescence and collision physics",
+      "screenshot": "screenshots/Bubbles.png"
+    },
+    "bubble-project": {
+      "name": "Soap Bubble Physics",
+      "category": "simulations",
+      "description": "Soap bubble physics with surface tension and Plateau laws",
+      "screenshot": "screenshots/bubble-project.png"
+    },
+    "watch2": {
+      "name": "Watch Physics",
+      "category": "simulations",
+      "description": "Mechanical wristwatch balance wheel and escapement simulation",
+      "screenshot": "screenshots/watch2.png"
+    },
+    "Carousel": {
+      "name": "Carousel 3D",
+      "category": "simulations",
+      "description": "Interactive 3D rotational carousel motion showcase",
+      "screenshot": "screenshots/carousel.png"
+    },
+    "PhantomJam": {
+      "name": "Phantom Jam",
+      "category": "simulations",
+      "demoUrl": "https://ozlphrt.github.io/PhantomJam/",
+      "description": "3D traffic shockwave simulation showing bottleneck dynamics & ring-road phantom jams with IDM physics",
+      "screenshot": "screenshots/PhantomJam.png"
+    },
+    "SUM10": {
+      "name": "SUM10",
+      "category": "games",
+      "demoUrl": "https://ozlphrt.github.io/SUM10/",
+      "description": "3D block sliding puzzle where you pair numbered blocks that sum to 10 to launch them from the tower",
+      "screenshot": "screenshots/sum10.png"
+    },
+    "Shikaku": {
+      "name": "Shikaku",
+      "category": "games",
+      "demoUrl": "https://ozlphrt.github.io/Shikaku/",
+      "description": "Japanese logic puzzle dividing a rectangular grid into numbered sub-rectangles with clean inputs",
+      "screenshot": "screenshots/Shigaku.png"
+    },
+    "Egg-Theory": {
+      "name": "Egg Theory",
+      "category": "simulations",
+      "demoUrl": "https://ozlphrt.github.io/Egg-Theory/",
+      "description": "Interactive 3D mascot clay simulation with dynamic material lighting and rotational physics",
+      "screenshot": "screenshots/Egg Theory.png"
     },
     "bayk-partnership-dev": {
       "screenshot": "screenshots/bayk-partnership-dev.png"
@@ -64,38 +246,14 @@
     "Boats-Around": {
       "screenshot": "screenshots/boats around.png"
     },
-    "bubble-project": {
-      "screenshot": "screenshots/bubble-project.png"
-    },
-    "Carousel": {
-      "screenshot": "screenshots/carousel.png"
-    },
     "fertility-simulation": {
       "screenshot": "screenshots/fertility-simulation.png"
     },
-    "FlagTest2": {
-      "screenshot": "screenshots/flagtest2.png"
-    },
     "GeoTest": {
-      "screenshot": "screenshots/geotestnew.png"
-    },
-    "GlobeSweeper": {
-      "screenshot": "screenshots/globesweeper.png"
-    },
-    "HexaSweeper": {
-      "screenshot": "screenshots/hexasweeper.png"
-    },
-    "Jarrows": {
-      "screenshot": "screenshots/jarrows.png"
-    },
-    "particle-life-simulation": {
-      "screenshot": "screenshots/particle-life-simulation.png"
+      "screenshot": "screenshots/geotestnew2.png"
     },
     "sailing-club-partnership": {
       "screenshot": "screenshots/sailing-club-partnership.png"
-    },
-    "Sardines-": {
-      "screenshot": "screenshots/sardines.png"
     },
     "ShakyGrounds": {
       "screenshot": "screenshots/shakygrounds.png"
@@ -106,23 +264,11 @@
     "sudoku": {
       "screenshot": "screenshots/sudoku.png"
     },
-    "vibeants": {
-      "screenshot": "screenshots/vibeants.png"
-    },
     "SkyNeedle": {
       "screenshot": "screenshots/skyneedle.png"
     },
-    "arrws": {
-      "screenshot": "screenshots/arrws.png"
-    },
-    "watch2": {
-      "screenshot": "screenshots/watch2.png"
-    },
     "Xudoku": {
       "screenshot": "screenshots/xudoku.png"
-    },
-    "zudoku": {
-      "screenshot": "screenshots/zudoku.png"
     }
   }
 }

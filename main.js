@@ -1,136 +1,257 @@
-async function init() {
-    const configResponse = await fetch('apps.config.json');
-    const config = await configResponse.json();
-    const appGrid = document.getElementById('appGrid');
-    const searchInput = document.getElementById('appSearch');
-    const filterContainer = document.getElementById('filters');
+let currentConfig = null;
+let allAppsList = [];
+const sectionVisibility = {
+    simulations: true,
+    games: true,
+    apps: true
+};
 
-    let allApps = [];
+const CATEGORY_META = {
+    games: {
+        id: 'games',
+        title: 'Games',
+        icon: '🎮',
+        badgeClass: 'cat-games',
+        badgeText: 'Game',
+        description: 'Interactive puzzles, arcade challenges, and strategy games'
+    },
+    simulations: {
+        id: 'simulations',
+        title: 'Simulations',
+        icon: '🧪',
+        badgeClass: 'cat-simulations',
+        badgeText: 'Simulation',
+        description: 'Emergent artificial life, swarm intelligence, and physics models'
+    },
+    apps: {
+        id: 'apps',
+        title: 'Apps & Tools',
+        icon: '📱',
+        badgeClass: 'cat-apps',
+        badgeText: 'App',
+        description: 'Web utilities, expense tools, and training applications'
+    }
+};
+
+async function init() {
+    const showcaseSections = document.getElementById('showcaseSections');
 
     try {
-        const githubResponse = await fetch(`https://api.github.com/users/${config.githubUsername}/repos?sort=updated&per_page=100`);
-        const repos = await githubResponse.json();
+        const configResponse = await fetch('apps.config.json');
+        currentConfig = await configResponse.json();
 
-        const pinnedApps = config.pinnedApps || [];
-        const hiddenApps = config.hiddenApps || [];
+        let repos = [];
+        try {
+            const githubResponse = await fetch(`https://api.github.com/users/${currentConfig.githubUsername}/repos?sort=updated&per_page=100`);
+            const data = await githubResponse.json();
+            if (Array.isArray(data)) {
+                repos = data;
+            } else {
+                console.warn("GitHub rate limit reached, using local config metadata.");
+            }
+        } catch (e) {
+            console.warn("Could not reach GitHub API, using local config:", e);
+        }
 
-        allApps = repos
-            .filter(repo => (pinnedApps.length === 0 || pinnedApps.includes(repo.name)) && !hiddenApps.includes(repo.name))
-            .map(repo => {
-                const override = config.overrides[repo.name] || {};
+        const pinnedApps = currentConfig.pinnedApps || [];
+        const hiddenApps = currentConfig.hiddenApps || [];
+        const overrides = currentConfig.overrides || {};
 
-                // Smart URL detection
+        allAppsList = pinnedApps
+            .filter(name => !hiddenApps.includes(name))
+            .map(repoName => {
+                const repo = repos.find(r => r.name === repoName) || {};
+                const override = overrides[repoName] || {};
+
                 let finalUrl = override.demoUrl || repo.homepage;
-
                 if (!finalUrl && repo.has_pages) {
-                    finalUrl = `https://${config.githubUsername}.github.io/${repo.name}/`;
+                    finalUrl = `https://${currentConfig.githubUsername}.github.io/${repoName}/`;
                 }
-
                 if (!finalUrl) {
-                    finalUrl = repo.html_url;
+                    finalUrl = `https://${currentConfig.githubUsername}.github.io/${repoName}/`;
                 }
 
-                // Smart Screenshot detection (looks for preview.png in main branch)
                 let screenshot = override.screenshot;
                 if (!screenshot) {
-                    screenshot = `https://raw.githubusercontent.com/${config.githubUsername}/${repo.name}/main/preview.png`;
+                    screenshot = `screenshots/${repoName}.png`;
                 }
 
+                const category = override.category || 'games';
+                const description = override.description || repo.description || "Interactive web application.";
+
                 return {
-                    id: repo.id,
-                    name: override.name || formatName(repo.name),
-                    description: override.description || repo.description || "No description provided.",
+                    id: repo.id || repoName,
+                    name: override.name || formatName(repoName),
+                    repoName: repoName,
                     url: finalUrl,
                     screenshot: screenshot,
-                    tags: [...(repo.topics || []), ...(override.tags || [])],
-                    language: repo.language,
-                    repoName: repo.name
+                    category: category,
+                    description: description
                 };
             });
 
-        // Sort by pinnedApps order
-        if (pinnedApps.length > 0) {
-            allApps.sort((a, b) => {
-                const indexA = pinnedApps.indexOf(a.repoName);
-                const indexB = pinnedApps.indexOf(b.repoName);
-                if (indexA === -1 && indexB === -1) return 0;
-                if (indexA === -1) return 1;
-                if (indexB === -1) return -1;
-                return indexA - indexB;
-            });
-        }
-
-        renderApps(allApps);
-        // generateFilters(allApps); // Removed as filter functionality is removed
+        updateCategoryNavBadges();
+        renderSections();
 
     } catch (error) {
-        console.error("Failed to fetch apps:", error);
-        appGrid.innerHTML = `<div class="loading">Failed to load apps. Please check your connection.</div>`;
+        console.error("Failed to load apps:", error);
+        showcaseSections.innerHTML = `<div class="loading">Failed to load projects. Please refresh to try again.</div>`;
     }
 
-    // searchInput.addEventListener('input', (e) => { // Removed search event listener
-    //     const query = e.target.value.toLowerCase();
-    //     const filtered = allApps.filter(app =>
-    //         app.name.toLowerCase().includes(query) ||
-    //         app.description.toLowerCase().includes(query) ||
-    //         app.tags.some(tag => tag.toLowerCase().includes(query))
-    //     );
-    //     renderApps(filtered);
-    // });
+    // Bind Filter/Toggle Buttons
+    const pillAll = document.getElementById('pill-all');
+    const pillGames = document.getElementById('pill-games');
+    const pillSimulations = document.getElementById('pill-simulations');
+    const pillApps = document.getElementById('pill-apps');
 
-    // filterContainer.addEventListener('click', (e) => { // Removed filter event listener
-    //     if (e.target.classList.contains('filter-btn')) {
-    //         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    //         e.target.classList.add('active');
+    if (pillAll) {
+        pillAll.addEventListener('click', toggleAllSections);
+    }
+    if (pillGames) {
+        pillGames.addEventListener('click', () => toggleSection('games'));
+    }
+    if (pillSimulations) {
+        pillSimulations.addEventListener('click', () => toggleSection('simulations'));
+    }
+    if (pillApps) {
+        pillApps.addEventListener('click', () => toggleSection('apps'));
+    }
+}
 
-    //         const filter = e.target.dataset.filter;
-    //         if (filter === 'all') {
-    //             renderApps(allApps);
-    //         } else {
-    //             const filtered = allApps.filter(app => app.tags.includes(filter) || app.language === filter);
-    //             renderApps(filtered);
-    //         }
-    //     }
-    // });
+function updateCategoryNavBadges() {
+    const totalCount = allAppsList.length;
+    const gamesCount = allAppsList.filter(a => a.category === 'games').length;
+    const simsCount = allAppsList.filter(a => a.category === 'simulations').length;
+    const appsCount = allAppsList.filter(a => a.category === 'apps').length;
+
+    const catCountAll = document.getElementById('catCountAll');
+    const catCountGames = document.getElementById('catCountGames');
+    const catCountSimulations = document.getElementById('catCountSimulations');
+    const catCountApps = document.getElementById('catCountApps');
+
+    if (catCountAll) catCountAll.textContent = totalCount;
+    if (catCountGames) catCountGames.textContent = gamesCount;
+    if (catCountSimulations) catCountSimulations.textContent = simsCount;
+    if (catCountApps) catCountApps.textContent = appsCount;
+
+    const appCount = document.getElementById('appCount');
+    if (appCount) {
+        appCount.textContent = `${totalCount} projects`;
+    }
+}
+
+function renderSections() {
+    const container = document.getElementById('showcaseSections');
+    if (!container) return;
+
+    const categories = ['simulations', 'games', 'apps'];
+    let sectionsHtml = '';
+
+    categories.forEach(catKey => {
+        const meta = CATEGORY_META[catKey];
+        if (!meta) return;
+
+        const appsInCategory = allAppsList.filter(a => a.category === catKey);
+        if (appsInCategory.length === 0) return;
+
+        const isExpanded = sectionVisibility[catKey];
+
+        const cardsHtml = appsInCategory.map(app => `
+            <a href="${app.url}" target="_blank" class="app-card">
+                <div class="app-card-image" style="background-image: url('${app.screenshot}')"></div>
+                <div class="app-card-overlay">
+                    <div class="card-header-row">
+                        <h3 class="card-title">${app.name}</h3>
+                        <span class="card-cat-badge ${meta.badgeClass}">${meta.badgeText}</span>
+                    </div>
+                    <p class="card-desc">${app.description}</p>
+                </div>
+            </a>
+        `).join('');
+
+        sectionsHtml += `
+            <section class="category-section section-${catKey} ${isExpanded ? '' : 'is-collapsed'}" id="section-${catKey}">
+                <div class="section-header" onclick="toggleSection('${catKey}')" title="Click to toggle ${meta.title}">
+                    <div class="section-header-left">
+                        <div class="section-title-row">
+                            <h2 class="section-title">${meta.title}</h2>
+                            <span class="section-count">${appsInCategory.length}</span>
+                        </div>
+                        <p class="section-desc">${meta.description}</p>
+                    </div>
+                    <div class="section-header-right">
+                        <span class="section-toggle-btn">
+                            <span class="toggle-label">${isExpanded ? 'Hide' : 'Show'}</span>
+                            <svg class="section-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="section-grid">
+                        ${cardsHtml}
+                    </div>
+                </div>
+            </section>
+        `;
+    });
+
+    container.innerHTML = sectionsHtml;
+    updatePillStates();
+}
+
+function toggleSection(catKey) {
+    sectionVisibility[catKey] = !sectionVisibility[catKey];
+
+    const sectionEl = document.getElementById(`section-${catKey}`);
+    if (sectionEl) {
+        sectionEl.classList.toggle('is-collapsed', !sectionVisibility[catKey]);
+        const stateText = sectionEl.querySelector('.toggle-label');
+        if (stateText) {
+            stateText.textContent = sectionVisibility[catKey] ? 'Hide' : 'Show';
+        }
+    }
+
+    updatePillStates();
+}
+
+function toggleAllSections() {
+    // If all are open, collapse all. Otherwise open all.
+    const allOpen = Object.values(sectionVisibility).every(Boolean);
+    const newState = !allOpen;
+
+    ['simulations', 'games', 'apps'].forEach(k => {
+        sectionVisibility[k] = newState;
+        const sectionEl = document.getElementById(`section-${k}`);
+        if (sectionEl) {
+            sectionEl.classList.toggle('is-collapsed', !newState);
+            const stateText = sectionEl.querySelector('.toggle-label');
+            if (stateText) {
+                stateText.textContent = newState ? 'Hide' : 'Show';
+            }
+        }
+    });
+
+    updatePillStates();
+}
+
+function updatePillStates() {
+    const pillGames = document.getElementById('pill-games');
+    const pillSimulations = document.getElementById('pill-simulations');
+    const pillApps = document.getElementById('pill-apps');
+    const pillAll = document.getElementById('pill-all');
+
+    if (pillGames) pillGames.classList.toggle('active', Boolean(sectionVisibility.games));
+    if (pillSimulations) pillSimulations.classList.toggle('active', Boolean(sectionVisibility.simulations));
+    if (pillApps) pillApps.classList.toggle('active', Boolean(sectionVisibility.apps));
+
+    const allOpen = Object.values(sectionVisibility).every(Boolean);
+    if (pillAll) pillAll.classList.toggle('active', allOpen);
 }
 
 function formatName(name) {
     return name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
-function renderApps(apps) {
-    const appGrid = document.getElementById('appGrid');
-    if (apps.length === 0) {
-        appGrid.innerHTML = `<div class="loading">No projects found.</div>`;
-        return;
-    }
-
-    appGrid.innerHTML = apps.map(app => {
-        // Fallback to a placeholder if no screenshot is provided
-        const screenshotUrl = app.screenshot || `https://via.placeholder.com/800x500/161616/555555?text=${encodeURIComponent(app.name)}`;
-
-        return `
-            <a href="${app.url}" target="_blank" class="app-card">
-                <div class="app-card-image" style="background-image: url('${screenshotUrl}')"></div>
-                <div class="app-card-overlay">
-                    <h3>${app.name}</h3>
-                </div>
-            </a>
-        `;
-    }).join('');
-}
-
-function generateFilters(apps) {
-    const filterContainer = document.getElementById('filters');
-    const languages = [...new Set(apps.map(app => app.language).filter(Boolean))];
-
-    languages.forEach(lang => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn';
-        btn.dataset.filter = lang;
-        btn.textContent = lang;
-        filterContainer.appendChild(btn);
-    });
-}
+window.toggleSection = toggleSection;
 
 init();
